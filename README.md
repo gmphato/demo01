@@ -22,7 +22,7 @@ Mainly did this t' speed up me productivity, but feel free t' make a PR if ye go
 - Responsive 
 - Typescript interfaces
 - Regex for regular stuff such as url/emails
-- Built-in regex for input fields/textareas
+- Built-in regex for  fields/textareas
 - Modal component
 - Premade Button components `<Button.Primary title={..}/`
 - Premade <Input> for normal inputs, textarea & checkboxes
