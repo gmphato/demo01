@@ -1,13 +1,26 @@
-import { useState } from 'react';
 
 import { DefaultLayout } from '../common/layouts/Default';
 
 import Layout from '../common/components/layout/Layout';
 import Button from '../common/components/Button';
+import { useApi } from '@/hooks/useApi';
+import { useEffect } from 'react';
 
 export default function Home() {
-  const [isOpen, setOpen] = useState<boolean>(false);
-  const toggleModal = () => setOpen(!isOpen);
+  const [{ data }, callSourceApi] = useApi();
+
+  useEffect(() => {
+    console.log("res", data)
+  },[data])
+
+  const url = "https://vercel.com/";
+
+  const handleClick = () => {
+    callSourceApi({
+      url: `https://vercel-puppeteer-gmphto.vercel.app/api/content/${encodeURIComponent(url)}`
+    })
+  }
+
   return (
     <DefaultLayout title={'Index'}>
       <Layout.Container center>
@@ -28,7 +41,7 @@ export default function Home() {
             title={`Extract This`}
             size="xl"
             className="!px-6"
-            onClick={() => toggleModal()}
+            onClick={() => handleClick()}
           />
         </Button.Group>
       </Layout.Container>

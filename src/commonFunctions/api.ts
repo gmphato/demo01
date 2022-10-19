@@ -100,7 +100,6 @@ function concreteFetchRequest<S, R>(request: IFetchRequest<S, R>): IFetchRequest
 }
 
 export function hitApi<S, R = string>(requestInput: IFetchRequest<S, R>, accessToken?: string, cancelToken?: CancelTokenSource): Promise<S> {
-
 	const request = concreteFetchRequest(requestInput);
 
 	return new Promise<S>((resolutionFunc, rejectionFunc) => {

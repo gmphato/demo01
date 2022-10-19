@@ -27,7 +27,7 @@ function dataFetchReducer<T>(state: IApiState<T>, action: IApiAction<T>): IApiSt
 				isLoading: false,
 				resultState: ApiResultState.Success,
 				data: action.payload,
-				cancelToken: null
+				cancelToken: undefined
 			};
 		case ApiActionType.FetchFailure: {
 			let resultState = ApiResultState.Error;
@@ -51,7 +51,7 @@ function dataFetchReducer<T>(state: IApiState<T>, action: IApiAction<T>): IApiSt
 				...state,
 				isLoading: false,
 				resultState: resultState,
-				cancelToken: null,
+				cancelToken: undefined,
 				data: data
 			};
 		}
@@ -92,7 +92,9 @@ export function useApi<S, R = string>(initialRequest?: IFetchRequest<S, R>, init
 	const callApi = useCallback((r: IFetchRequest<S, R>) => {
 		// By default (null, true, etc.) we wait until the token is available before making any requests
 		let waitForAuth = (r as IFetchRequestStruct<S, R>)?.waitForAuth !== false;
-		if (r != null && (!waitForAuth || (waitForAuth && authState?.accessToken))) {
+		// if (r != null && (!waitForAuth || (waitForAuth && authState?.accessToken))) {
+		if (r != null) {
+		
 
 			dispatch({ type: ApiActionType.FetchInit });
 			lastCall.current = Date.now();
@@ -107,7 +109,7 @@ export function useApi<S, R = string>(initialRequest?: IFetchRequest<S, R>, init
 			hitApi<S, R>(r, authState?.accessToken, cancelTokenSource)
 				.then((result) => {
 					prevRequest.current = r;
-					cancelTokenPrev.current = null;
+					cancelTokenPrev.current = undefined;
 					dispatch({ type: ApiActionType.FetchSuccess, payload: result });
 				}).catch((error) => {
 					dispatch({ type: ApiActionType.FetchFailure, payload: error });
