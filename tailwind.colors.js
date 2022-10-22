@@ -7,8 +7,8 @@ module.exports = {
   brand: {
     primary: {
       50: '#d5672c',
-      100: '#f47734',
-      150: '#fc8f55',
+      100: '#1e1f23',
+      150: '#fff',
       200: '#fc8343',
     },
     secondary: {
