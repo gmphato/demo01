@@ -4,21 +4,24 @@ import { DefaultLayout } from '../common/layouts/Default';
 import Layout from '../common/components/layout/Layout';
 import Button from '../common/components/Button';
 import { useApi } from '@/hooks/useApi';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
   const [{ data }, callSourceApi] = useApi();
+  const [url, setUrl] = useState<string>()
 
   useEffect(() => {
     console.log("res", data)
   },[data])
 
-  const url = "https://vercel.com/";
-
   const handleClick = () => {
     callSourceApi({
-      url: `https://vercel-puppeteer-gmphto.vercel.app/api/content/${encodeURIComponent(url)}`
+      url: `https://vercel-puppeteer-gmphto.vercel.app/api/content/${encodeURIComponent(url as string)}`
     })
+  }
+
+  const onChange = (v: string) => {
+    setUrl(v)
   }
 
   return (
@@ -31,8 +34,11 @@ export default function Home() {
           <input 
           type="text" 
           name="price" 
-          id="price" className={"block w-full py-3 pl-12 pr-4 rounded-md font-bold text-gray-700 bg-gray-100"} 
-          placeholder="https://...">
+          id="price" 
+          className={"block w-full py-3 pl-12 pr-4 rounded-md font-bold text-gray-700 bg-gray-100"} 
+          placeholder="https://..."
+          onChange={e => onChange(e.target.value)}
+          >
             </input>
 
         </div>
